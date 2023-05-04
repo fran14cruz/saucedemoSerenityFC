@@ -1,4 +1,4 @@
-## Ejercicio propuesto usando Serenity BDD.
+## Ejercicio propuesto de automatización usando Serenity BDD.
 
 1. Ingresar a https://www.saucedemo.com/
 2. Loguearse con un usuario standard
