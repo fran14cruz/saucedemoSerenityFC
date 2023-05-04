@@ -6,4 +6,4 @@ Feature: Search Saucedemo
     Scenario: After login, view products page
       Given user enters credentials for standard user
       When clicks on Login
-      Then user views product page
+      Then user views Products page

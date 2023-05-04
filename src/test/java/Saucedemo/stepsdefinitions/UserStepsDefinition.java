@@ -29,7 +29,7 @@ public class UserStepsDefinition {
         saucedemoUser.clickOnLogin();
     }
 
-    @Then("^user views product page$")
+    @Then("^user views Products page$")
     public void userViewsProductPage() {
         saucedemoUser.viewProductPage();
         Serenity.takeScreenshot();
