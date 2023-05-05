@@ -67,8 +67,8 @@ public class UserStepsDefinition {
 
     // SCENARIO 3
     @When("^filters products by (.*)$")
-    public void userFiltersByType(String productType) {
-        saucedemoUser.filterProductsByType(productType);
+    public void userFiltersByType(String productFilter) {
+        saucedemoUser.filterProductsByType(productFilter);
         Serenity.takeScreenshot();
     }
 

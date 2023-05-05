@@ -51,15 +51,15 @@ public class SaucedemoUser extends ScenarioActor {
     }
 
     // SCENARIO 3
-    public void filterProductsByType(String productType) {
-        productsPage.filterProducts(productType);
+    public void filterProductsByType(String productFilter) {
+        productsPage.filterProducts(productFilter);
     }
 
     public void addProductsToCart(String productNumber) {
-
+        productsPage.addExpensiveProductsToCart(productNumber);
     }
 
     public void viewNumberOfProducts(String productNumber) {
-
+        productsPage.viewProductNumberOnCart(productNumber);
     }
 }
