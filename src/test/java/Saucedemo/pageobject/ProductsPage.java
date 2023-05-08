@@ -13,6 +13,7 @@ import org.openqa.selenium.support.PageFactory;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
+import java.util.stream.Collectors;
 
 public class ProductsPage extends PageObject {
 
@@ -32,6 +33,44 @@ public class ProductsPage extends PageObject {
     @FindBy(xpath = "//*[@id='shopping_cart_container']/a/span")
     WebElementFacade cartProductNumber;
 
+    @FindBy(xpath = "//*[@id='shopping_cart_container']/a")
+    WebElementFacade cartIcon;
+
+    @FindBy(xpath = "//*[@class='cart_item_label']/a/div")
+    List<WebElementFacade> cartItemsLabelList;
+
+    @FindBy(xpath = "//*[@class='cart_item_label']/div[1]")
+    List<WebElementFacade> cartItemsDescList;
+
+    @FindBy(xpath = "//*[@class='cart_item_label']/div[2]/div")
+    List<WebElementFacade> cartItemsPriceList;
+
+    @FindBy(xpath = "//*[@class='cart_quantity']")
+    List<WebElementFacade> cartItemsQuantList;
+
+    @FindBy(xpath = "//*[@id='checkout']")
+    WebElementFacade checkoutButton;
+
+    @FindBy(xpath = "//*[@id='first-name']")
+    WebElementFacade firstNameCheckout;
+
+    @FindBy(xpath = "//*[@id='last-name']")
+    WebElementFacade lastNameCheckout;
+
+    @FindBy(xpath = "//*[@id='postal-code']")
+    WebElementFacade postalCodeCheckout;
+
+    @FindBy(xpath = "//*[@id='continue']")
+    WebElementFacade continueButtonCheckout;
+
+    @FindBy(xpath = "//*[@class='inventory_item_price']")
+    List<WebElementFacade> checkoutPricesList;
+
+    @FindBy(xpath = "//*[@class='summary_tax_label']")
+    WebElementFacade checkoutTaxAmount;
+
+    @FindBy(xpath = "//*[@class='summary_info_label summary_total_label']")
+    WebElementFacade checkoutTotalAmount;
 
 //    public ProductsPage(WebDriver driver) {
 //        this.driver = driver;
@@ -87,5 +126,52 @@ public class ProductsPage extends PageObject {
                 "The expected number of products is: " + productNumber;
         Serenity.recordReportData().withTitle("Products number on cart").andContents(details);
     }
+
+    // SCENARIO 4
+    public void goToCheckout() {
+        // go to cart
+        cartIcon.click();
+
+        // save cart info to Serenity Report
+        List<String> detailsList = new ArrayList<>();
+        for (int i=0; i<cartItemsLabelList.size(); i++) {
+            detailsList.add("Item #" + i + ": " + cartItemsLabelList.get(i).getText() + "\n" +
+                    "Description: " + cartItemsDescList.get(i).getText() + "\n" +
+                    "Quantity: " + cartItemsQuantList.get(i).getText() + ", Price: " + cartItemsPriceList.get(i).getText());
+        }
+        String details = detailsList.stream()
+                .map(n -> String.valueOf(n))
+                .collect(Collectors.joining("\n"));
+        Serenity.recordReportData().withTitle("Items in cart").andContents(details);
+
+        // finally, click on Checkout
+        checkoutButton.click();
+    }
+
+    public void fillUpPersonalInfo(String firstName, String lastName, String postalCode) {
+        firstNameCheckout.sendKeys(firstName);
+        lastNameCheckout.sendKeys(lastName);
+        postalCodeCheckout.sendKeys(postalCode);
+        // hit Continue
+        continueButtonCheckout.click();
+    }
+
+    public void verifyCorrectTotalPrice() {
+        float amountWithoutTax = 0.0F;
+        for (WebElementFacade itemPrice : checkoutPricesList) {
+            amountWithoutTax += Float.parseFloat(itemPrice.getText().replace("$", ""));
+        }
+
+        // Total Price is amountWithoutTax + tax
+        float totalPrice = amountWithoutTax + Float.parseFloat(checkoutTaxAmount.getText().replace("Tax: $", ""));
+
+        Assert.assertTrue(totalPrice == Float.parseFloat(checkoutTotalAmount.getText().replace("Total: $", "")));
+        String details = "Expected Total Price is: $" + totalPrice + "\n" +
+                "Total Price displayed on Checkout page is: " + checkoutTotalAmount.getText();
+        Serenity.recordReportData().withTitle("Total Price (tax included) on checkout").andContents(details);
+    }
+
+    // SCENARIO 5
+
 
 }

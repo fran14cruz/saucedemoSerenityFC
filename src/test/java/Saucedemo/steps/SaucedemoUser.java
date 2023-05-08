@@ -55,11 +55,31 @@ public class SaucedemoUser extends ScenarioActor {
         productsPage.filterProducts(productFilter);
     }
 
-    public void addProductsToCart(String productNumber) {
+    public void addExpensiveProductsToCart(String productNumber) {
         productsPage.addExpensiveProductsToCart(productNumber);
     }
 
     public void viewNumberOfProducts(String productNumber) {
         productsPage.viewProductNumberOnCart(productNumber);
     }
+
+    // SCENARIO 4
+    public void addItemsToCart(String productNumber) {
+        productsPage.addExpensiveProductsToCart(productNumber);
+    }
+
+    public void goToCheckout() {
+        productsPage.goToCheckout();
+    }
+
+    public void fillUpPersonalInfo(String firstName, String lastName, String postalCode) {
+        productsPage.fillUpPersonalInfo(firstName, lastName, postalCode);
+    }
+
+    public void viewCorrectTotalPrice() {
+        productsPage.verifyCorrectTotalPrice();
+    }
+
+    // SCENARIO 5
+
 }

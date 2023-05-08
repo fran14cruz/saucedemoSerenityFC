@@ -25,16 +25,24 @@ Feature: Search Saucedemo
       |type|productNumber|
       |priceLowToHigh|4  |
 
-    Scenario Outline: Go to cart, save products info,
+    Scenario Outline: Checkout items, fill personal info, verify order Price Total
       Given user logs in to https://www.saucedemo.com/
-      And user adds <productNumber> to the cart
-      When clicks on cart icon
-      And clicks on Checkout button
-      And fills up Contact Information
-      And clicks on Continue
-      Then the Price Total without tax is correct
+      And user adds <productNumber> items to the cart
+      When goes to checkout of items in cart
+      And fills up Personal Information - <firstName>, <lastName>, <postalCode>
+      Then the Total Price with tax is correct
 
       Examples:
-      |productNumber|
-      |3            |
+      |productNumber|firstName|lastName|postalCode|
+      |3            |Francisco|Cruz    |101010    |
 
+    Scenario Outline: Finish checkout and view success message
+      Given user logs in to https://www.saucedemo.com/
+      And user adds <productNumber> items to the cart
+      And fills up Personal Information - <firstName>, <lastName>, <postalCode>
+      When completes checkout
+      Then user views Success Message
+
+      Examples:
+      |productNumber|firstName|lastName|postalCode|
+      |4            |Francisco|Cruz    |101010    |

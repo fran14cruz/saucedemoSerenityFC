@@ -12,7 +12,7 @@ import org.openqa.selenium.support.ui.WebDriverWait;
 public class MainPage extends PageObject {
     //static WebDriver driver = new ChromeDriver();
 
-    //@FindBy(xpath="//*[@id='login_credentials']/text()[1]")
+    //@FindBy(xpath="//*[@id='login_credentials']")
     @FindBy(xpath = "//*[text()='standard_user']/text()[1]")
     WebElementFacade standardUserText;
 

@@ -74,13 +74,51 @@ public class UserStepsDefinition {
 
     @And("^adds the (.*) most expensive products to the cart$")
     public void userAddsProductsToCart(String productNumber) {
-        saucedemoUser.addProductsToCart(productNumber);
+        saucedemoUser.addExpensiveProductsToCart(productNumber);
         Serenity.takeScreenshot();
     }
 
     @Then("^the (.*) of added products is reflected on the cart icon$")
     public void userViewsNumberOfProducts(String productNumber) {
         saucedemoUser.viewNumberOfProducts(productNumber);
+        Serenity.takeScreenshot();
+    }
+
+    // SCENARIO 4
+    @And("^user adds (.*) items to the cart$")
+    public void userAddsItemsToCart(String productNumber) {
+        saucedemoUser.addItemsToCart(productNumber);
+        Serenity.takeScreenshot();
+    }
+
+    @When("^goes to checkout of items in cart$")
+    public void userGoesToCheckout() {
+        saucedemoUser.goToCheckout();
+        Serenity.takeScreenshot();
+    }
+
+    @And("^fills up Personal Information - (.*), (.*), (.*)$")
+    public void userFillsUpPersonalInfo(String firstName, String lastName, String postalCode) {
+        saucedemoUser.fillUpPersonalInfo(firstName, lastName, postalCode);
+        Serenity.takeScreenshot();
+    }
+
+    @Then("^the Total Price with tax is correct$")
+    public void userViewsCorrectTotalPrice() {
+        saucedemoUser.viewCorrectTotalPrice();
+        Serenity.takeScreenshot();
+    }
+
+    // SCENARIO 5
+    @When("^completes checkout$")
+    public void userCompletesCheckout() {
+        saucedemoUser.completeCheckout();
+        Serenity.takeScreenshot();
+    }
+
+    @Then("^user views Success Message$")
+    public void userViewsSuccessMessage() {
+        saucedemoUser.viewSuccessMessage();
         Serenity.takeScreenshot();
     }
 
