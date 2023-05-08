@@ -117,8 +117,8 @@ public class UserStepsDefinition {
     }
 
     @Then("^user views Success Message$")
-    public void userViewsSuccessMessage() {
-        saucedemoUser.viewSuccessMessage();
+    public void userViewsCheckoutSuccessPage() {
+        saucedemoUser.viewCheckoutSuccessPage();
         Serenity.takeScreenshot();
     }
 

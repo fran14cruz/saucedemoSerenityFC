@@ -72,6 +72,24 @@ public class ProductsPage extends PageObject {
     @FindBy(xpath = "//*[@class='summary_info_label summary_total_label']")
     WebElementFacade checkoutTotalAmount;
 
+    @FindBy(xpath = "//*[@id='finish']")
+    WebElementFacade finishButtonCheckout;
+
+    @FindBy(xpath = "//*[@id='checkout_complete_container']/h2")
+    WebElementFacade successMessageCheckout;
+
+    @FindBy(xpath = "//*[@id='back-to-products']")
+    WebElementFacade backHomeButtonCheckout;
+
+    @FindBy(xpath = "//*[@id='checkout_summary_container']/div/div[2]/div[2]")
+    WebElementFacade paymentInfoText;
+
+    @FindBy(xpath = "//*[@id='checkout_summary_container']/div/div[2]/div[4]")
+    WebElementFacade shippingInfoText;
+
+    @FindBy(xpath = "//*[@class='summary_subtotal_label']")
+    WebElementFacade checkoutSubtotalAmount;
+
 //    public ProductsPage(WebDriver driver) {
 //        this.driver = driver;
 //        PageFactory.initElements(driver, this);
@@ -172,6 +190,26 @@ public class ProductsPage extends PageObject {
     }
 
     // SCENARIO 5
+    public void saveCheckoutOverviewInfo() {
+        // save Checkout overview info to Serenity Report
+        String details = "Payment Information: " + paymentInfoText.getText() + "\n" +
+                "Shipping Information: " + shippingInfoText.getText() + "\n" +
+                "Item Subtotal: " + checkoutSubtotalAmount.getText() + "\n" +
+                "Tax: " + checkoutTaxAmount.getText() + "\n" +
+                "Grand " + checkoutTotalAmount.getText();
+        Serenity.recordReportData().withTitle("Checkout overview information").andContents(details);
+    }
 
+    public void clickFinishCheckoutButton() {
+        finishButtonCheckout.click();
+    }
+
+    public void viewCheckoutSuccess() {
+        Assert.assertTrue(successMessageCheckout.isDisplayed());
+        Assert.assertTrue(backHomeButtonCheckout.isDisplayed());
+
+        String details = "Message displayed after completing checkout: " + successMessageCheckout.getText();
+        Serenity.recordReportData().withTitle("Success message after checkout").andContents(details);
+    }
 
 }

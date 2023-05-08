@@ -39,6 +39,7 @@ Feature: Search Saucedemo
     Scenario Outline: Finish checkout and view success message
       Given user logs in to https://www.saucedemo.com/
       And user adds <productNumber> items to the cart
+      And goes to checkout of items in cart
       And fills up Personal Information - <firstName>, <lastName>, <postalCode>
       When completes checkout
       Then user views Success Message

@@ -81,5 +81,13 @@ public class SaucedemoUser extends ScenarioActor {
     }
 
     // SCENARIO 5
+    public void completeCheckout() {
+        productsPage.saveCheckoutOverviewInfo();
+        productsPage.clickFinishCheckoutButton();
+    }
+
+    public void viewCheckoutSuccessPage() {
+        productsPage.viewCheckoutSuccess();
+    }
 
 }
