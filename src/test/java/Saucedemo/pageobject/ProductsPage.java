@@ -5,10 +5,8 @@ import net.serenitybdd.core.pages.WebElementFacade;
 import net.thucydides.core.pages.PageObject;
 import org.junit.Assert;
 import org.openqa.selenium.By;
-import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
-import org.openqa.selenium.support.PageFactory;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +15,8 @@ import java.util.stream.Collectors;
 
 public class ProductsPage extends PageObject {
 
-    //private final WebDriver driver;
+    @FindBy(xpath = "//*[@id='header_container']/div[2]/span")
+    WebElementFacade lblProducts;
     @FindBy(xpath = "//*[@id='react-burger-menu-btn']")
     WebElementFacade burgerMenu;
 
@@ -105,7 +104,12 @@ public class ProductsPage extends PageObject {
     }
 
     public void backToProductsPage() {
+        // Assert About page has been displayed https://saucelabs.com/
         //driver.navigate().back();
+//        Assert.assertTrue(lblProducts.isDisplayed());
+//
+//        String details = "'Products page' displayed after navigating back from 'About page': " + lblProducts.isDisplayed();
+//        Serenity.recordReportData().withTitle("Products page displayed").andContents(details);
     }
 
     // SCENARIO 3
@@ -122,10 +126,6 @@ public class ProductsPage extends PageObject {
     }
 
     public void addExpensiveProductsToCart(String productNumber) {
-//        List<Float> pricesListDecimal = new ArrayList<>();
-//        for (WebElementFacade price : pricesList) {
-//            pricesListDecimal.add(Float.parseFloat(price.getText().replace("$", "")));
-//        }
         // The four most expensive are the four last items in the list
         int addToCartButtonsListSize = addToCartButtonsList.size();
         int productNumberInt = Integer.parseInt(productNumber);
