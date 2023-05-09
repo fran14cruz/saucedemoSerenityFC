@@ -89,11 +89,6 @@ public class ProductsPage extends PageObject {
     @FindBy(xpath = "//*[@class='summary_subtotal_label']")
     WebElementFacade checkoutSubtotalAmount;
 
-//    public ProductsPage(WebDriver driver) {
-//        this.driver = driver;
-//        PageFactory.initElements(driver, this);
-//    }
-
     // SCENARIO 2
     public void clickOnMenu() {
         burgerMenu.click();
